@@ -1,118 +1,165 @@
-// Явное преобразование значений в тип boolean
-function makeBool(params) {
-  return !!params; // Простое двойное отрицание для преобразования в boolean
+// #1 ### Задача: Добавление товара в магазин
+
+const getStatusMessage = status => {
+
+  switch (status) {
+    case 'error': return 'Не известная ошибка';
+    case 'pending': return 'Транзакция в ожидании';
+    case 'success': return 'Транзакция прошла успешно';
+    case 'feild': return 'Транзакция не прошла успешно';
+    default: return('Неизвестный статус');
+  }
+}
+console.log('Задача:    ', getStatusMessage('asd'))
+
+
+
+
+
+
+// #2 ### Задача: Обработка статусов
+
+const products = [
+  { name: "Laptop", price: 999.99, quantity: 5 },
+  { name: "Phone", price: 499.99, quantity: 10 }
+];
+
+const newProduct = { name: "Tablet", price: 299.99, quantity: 7 };
+
+const addProduct = (newProduct, products) => ([newProduct, ...products])
+
+console.log('Задача:    ', addProduct(newProduct, products));
+
+
+
+
+
+
+
+// #3 ### Задача: Функция вычисления площади круга
+
+const calculateCircleArea = a => (Math.PI*Math.pow(a, 2))
+
+console.log('Задача:   ', calculateCircleArea(5)); 
+
+
+
+
+
+
+// #4 ### Задача: Функция расчёта скидки
+
+const calculateDiscount = (price, discount) => price - (price *discount)/100
+
+console.log('Задача:   ', calculateDiscount(1000, 15)); 
+
+
+
+
+
+// #5 ### Задача: Арифметические операции с двумя числами
+
+const calculate = (a, b, operator) => {
+  switch (operator) {
+    case '+': return a + b
+    case '-': return a - b
+    case '*': return a * b
+    case '/':
+      if(!isFinite(a / b)) {
+        return 'Ошибка: деление на ноль'
+      }
+      return  a / b
+    case '%': return 'Ошибка: некорректный оператор'
+    default: return 'Этого оператора не существует'
+  }
 }
 
-console.log(makeBool(0));
+console.log('Задача 5. Арифметические операции:   ', calculate(10, 5, '+')); 
+console.log('Задача 5.1:    ', calculate(10, 5, '-')); 
+console.log('Задача 5.2:    ', calculate(10, 5, '*')); 
+console.log('Задача 5.3:    ', calculate(10, 5, '/')); 
+console.log('Задача 5.4:    ', calculate(10, 0, '/')); 
+console.log('Задача 5.5:    ', calculate(10, 5, '%'));
 
-// Явное преобразование значений в тип number
-function convertToNumber(params) {
-  return Number(params); // Использую встроенную функцию для явного преобразования
+
+
+
+
+
+
+// #6 ### Задача: Функция преобразования времени из минут в часы и минуты
+
+const convertMinutes = minute => `${Math.floor(minute/60)} часов ${Math.floor(minute%60)} минут`
+
+console.log('Задача 6:   ', convertMinutes(130)); 
+
+
+
+
+
+
+
+// #7 ### Задача: Функция вычисления максимального числа
+
+const findMax = (a, b ,c) => Math.max(a, b, c)
+
+console.log('Задача 7:   ', findMax(10, 25, 7)); 
+
+
+
+
+// #8 ### Задача: Форматирование строки
+
+const formatString = str => str.trim().toUpperCase()
+
+console.log('Задача 8:   ', formatString("   hello world   "));  
+console.log('Задача 8:   ', formatString("  JavaScript   "));    
+console.log('Задача 8:   ', formatString("    openai  "));       
+
+
+
+
+
+
+
+
+// #9 ### Задача: Генерация идентификатора
+
+const generateId = () => `id-(${Math.random().toFixed(0)*10+1})`
+
+console.log('Задача 9:   ', generateId());
+
+
+
+
+
+
+// #10 ### Задача: Обработка HTTP статус-кодов
+const getInfoAboutHTTPStatus = statusCode => {
+
+  switch (statusCode) {
+      case 200: return `ОК: Запрос выполнен успешно`;
+      case 201: return `Created: Ресурс был создан успешно`;
+      case 204: return `Not Content: Запрос выполнен успешно, но нет содержимого`;
+      case 400: return `Bad Request: Неверный запрос`;
+      case 401: return `Unauthorized: Неавторизованный доступ`;
+      case 403: return `Forbidden: Доступ запрещен`;
+      case 404: return `Not Found: Ресурс не найден`;
+      case 500: return `Internal Server Error: Внутренняя ошибка сервера`;
+      case 502: return `Bad Gateway: Неверный шлюз`;
+      case 503: return `Service Unavailable: Сервис недоступен`;
+      default: return `Unknown Status Code: Неизвестный статус-код`;
+  }
 }
 
-console.log(convertToNumber(""));
-console.log(convertToNumber(true));
-console.log(convertToNumber(false));
-console.log(convertToNumber("15"));
-console.log(convertToNumber("12million")); // Приведет к NaN, так как строка не является числом
+console.log('Задача 10:   ', getHttpStatusMessage(404));
 
-// Управление числами с помощью объекта Math
-function findMax(arr) {
-  return Math.max(...arr); // Использую spread оператор для передачи элементов массива в Math.max
-}
 
-const numbers = [3, 5, 7, 2, 9];
-console.log(findMax(numbers));
 
-// Math.min
-function findMin(arr) {
-  return Math.min(...arr); // Аналогично Math.max, только ищем минимум
-}
 
-console.log(findMin(numbers));
 
-// Округление чисел
-function roundNum(num) {
-  return Math.round(num); // Округление числа до ближайшего целого
-}
+// #11 ### Задача: Функция проверки на четность
 
-console.log(roundNum(15.62));
-console.log(roundNum(-85.89));
-console.log(roundNum(2.89));
+const isEven = (num) => !Boolean(num % 2)
 
-// Преобразование значений с унарными операторами
-function unaryPlus(value) {
-  return +value; // Преобразование значения в число с помощью унарного плюса
-}
-
-console.log(unaryPlus(77));
-
-function unaryMinus(value) {
-  return -value; // Унарный минус — просто меняет знак числа
-}
-
-console.log(unaryMinus(77));
-
-// Инкремент и декремент
-function increment(value) {
-  return ++value; // Предварительное увеличение
-}
-
-console.log(increment(77));
-
-function decrement(value) {
-  return --value; // Предварительное уменьшение
-}
-
-console.log(decrement(77));
-
-// Работа с методами строк
-function toUpperCase(str) {
-  return str.toUpperCase(); // Преобразование строки в верхний регистр
-}
-
-let text = "Don't give up";
-console.log(toUpperCase(text));
-
-function toLowerCase(str) {
-  return str.toLowerCase(); // Преобразование строки в нижний регистр
-}
-
-let text2 = "DON'T GIVE UP";
-console.log(toLowerCase(text2));
-
-// Замена подстроки
-function replaceString(str) {
-  return str.replace("Don't give up", ''); // Заменяем подстроку на пустую строку
-}
-
-console.log(replaceString("Don't give up on your dreams!"));
-
-// Разбиение строки
-function splitString(str) {
-  return str.split(); // Разделение строки по умолчанию (по пробелам)
-}
-
-console.log(splitString("Don't give up on your dreams!"));
-
-// Удаление пробелов
-function trimString(str) {
-  return str.trim(); // Удаление пробелов в начале и конце строки
-}
-
-console.log(trimString("        Don't give up         "));
-
-// Поиск подстроки
-function findSubstring(str, substring) {
-  return str.indexOf(substring); // Ищем индекс первой подстроки
-}
-
-console.log(findSubstring("Don't give up", "g"));
-
-// Проверка наличия подстроки
-function containsSubstring(str, substring) {
-  return str.includes(substring); // Проверяем наличие подстроки
-}
-
-console.log(containsSubstring("Don't give up", "up"));
-console.log(containsSubstring("Don't give up", "Boboev"));
+console.log('Задача 11:   ', isEven(10)) 
