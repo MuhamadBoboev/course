@@ -1,165 +1,245 @@
-// #1 ### Задача: Добавление товара в магазин
-
-const getStatusMessage = status => {
-
-  switch (status) {
-    case 'error': return 'Не известная ошибка';
-    case 'pending': return 'Транзакция в ожидании';
-    case 'success': return 'Транзакция прошла успешно';
-    case 'feild': return 'Транзакция не прошла успешно';
-    default: return('Неизвестный статус');
-  }
-}
-console.log('Задача:    ', getStatusMessage('asd'))
-
-
-
-
-
-
-// #2 ### Задача: Обработка статусов
-
-const products = [
-  { name: "Laptop", price: 999.99, quantity: 5 },
-  { name: "Phone", price: 499.99, quantity: 10 }
-];
-
-const newProduct = { name: "Tablet", price: 299.99, quantity: 7 };
-
-const addProduct = (newProduct, products) => ([newProduct, ...products])
-
-console.log('Задача:    ', addProduct(newProduct, products));
-
-
-
-
-
-
-
-// #3 ### Задача: Функция вычисления площади круга
-
-const calculateCircleArea = a => (Math.PI*Math.pow(a, 2))
-
-console.log('Задача:   ', calculateCircleArea(5)); 
-
-
-
-
-
-
-// #4 ### Задача: Функция расчёта скидки
-
-const calculateDiscount = (price, discount) => price - (price *discount)/100
-
-console.log('Задача:   ', calculateDiscount(1000, 15)); 
-
-
-
-
-
-// #5 ### Задача: Арифметические операции с двумя числами
-
-const calculate = (a, b, operator) => {
-  switch (operator) {
-    case '+': return a + b
-    case '-': return a - b
-    case '*': return a * b
-    case '/':
-      if(!isFinite(a / b)) {
-        return 'Ошибка: деление на ноль'
-      }
-      return  a / b
-    case '%': return 'Ошибка: некорректный оператор'
-    default: return 'Этого оператора не существует'
-  }
+const account = {
+  owner: 'Muhammad',
+  balance: 1000,
+  deposit(amount) {
+    this.balance += amount
+  },
+  withdraw(amount) {
+    if(this.balance < amount) {
+      return 'Недостаточно средств!'
+    } 
+    this.balance -= amount
+    return 'Снято'
+  },
+  getBalance() {
+    return this.balance
+  },
+  getOwner() {
+    return this.owner
+  } 
 }
 
-console.log('Задача 5. Арифметические операции:   ', calculate(10, 5, '+')); 
-console.log('Задача 5.1:    ', calculate(10, 5, '-')); 
-console.log('Задача 5.2:    ', calculate(10, 5, '*')); 
-console.log('Задача 5.3:    ', calculate(10, 5, '/')); 
-console.log('Задача 5.4:    ', calculate(10, 0, '/')); 
-console.log('Задача 5.5:    ', calculate(10, 5, '%'));
+account.deposit(500);      // Ожидаемый вывод: Депозит: 500. Текущий баланс: 1500
+account.withdraw(200);     // Ожидаемый вывод: Снято: 200. Текущий баланс: 1300
+account.withdraw(2000);    // Ожидаемый вывод: Недостаточно средств для снятия: 2000
+console.log(account.getBalance()); // Ожидаемый вывод: 1300
+
+
+/* ******************************************************************************** */
+
+
+
+const user = {
+  username: 'Muhammad',
+  email: 'asd@gmail.com',
+  age: 22
+} 
+
+
+const address = {
+  city: 'Душанбе',
+  state: 'Сино',
+  postalCode: 125402
+} 
+
+
+const userProfile = Object.assign(user, address)
+console.log(userProfile)
 
 
 
 
 
 
-
-// #6 ### Задача: Функция преобразования времени из минут в часы и минуты
-
-const convertMinutes = minute => `${Math.floor(minute/60)} часов ${Math.floor(minute%60)} минут`
-
-console.log('Задача 6:   ', convertMinutes(130)); 
+/* ******************************************************************************** */
 
 
-
-
-
-
-
-// #7 ### Задача: Функция вычисления максимального числа
-
-const findMax = (a, b ,c) => Math.max(a, b, c)
-
-console.log('Задача 7:   ', findMax(10, 25, 7)); 
-
-
-
-
-// #8 ### Задача: Форматирование строки
-
-const formatString = str => str.trim().toUpperCase()
-
-console.log('Задача 8:   ', formatString("   hello world   "));  
-console.log('Задача 8:   ', formatString("  JavaScript   "));    
-console.log('Задача 8:   ', formatString("    openai  "));       
+const literal = {
+  title: 'Точиконистон',
+  author: 'Фирдавси',
+  year: 1995,
+  isAvailable: true
+}
 
 
 
 
 
+/* ******************************************************************************** */
 
 
-
-// #9 ### Задача: Генерация идентификатора
-
-const generateId = () => `id-(${Math.random().toFixed(0)*10+1})`
-
-console.log('Задача 9:   ', generateId());
-
-
-
-
-
-
-// #10 ### Задача: Обработка HTTP статус-кодов
-const getInfoAboutHTTPStatus = statusCode => {
-
-  switch (statusCode) {
-      case 200: return `ОК: Запрос выполнен успешно`;
-      case 201: return `Created: Ресурс был создан успешно`;
-      case 204: return `Not Content: Запрос выполнен успешно, но нет содержимого`;
-      case 400: return `Bad Request: Неверный запрос`;
-      case 401: return `Unauthorized: Неавторизованный доступ`;
-      case 403: return `Forbidden: Доступ запрещен`;
-      case 404: return `Not Found: Ресурс не найден`;
-      case 500: return `Internal Server Error: Внутренняя ошибка сервера`;
-      case 502: return `Bad Gateway: Неверный шлюз`;
-      case 503: return `Service Unavailable: Сервис недоступен`;
-      default: return `Unknown Status Code: Неизвестный статус-код`;
+const createBook = (title, author, year, genre) => {
+  return {
+    title,
+    author,
+    year,
+    genre
   }
 }
 
-console.log('Задача 10:   ', getHttpStatusMessage(404));
+console.log(createBook('title', 'author', 30, 'genre'))
 
 
 
 
 
-// #11 ### Задача: Функция проверки на четность
+/* ******************************************************************************** */
 
-const isEven = (num) => !Boolean(num % 2)
 
-console.log('Задача 11:   ', isEven(10)) 
+const calculator = {
+  num1: 0,
+  num2: 0,
+  setNumbers(a, b) {
+    this.num1 = a
+    this.num2 = b
+  },
+  add() {
+    return this.num1 + this.num2 
+  },
+  subtract() {
+    return this.num1 - this.num2
+  },
+  multiply() {
+    return this.num1 * this.num2
+  },
+  divide() {
+    return this.num1 / this.num2
+  }
+}
+
+calculator.setNumbers(10, 5);
+console.log(calculator.add());      // Ожидаемый вывод: 15
+console.log(calculator.subtract()); // Ожидаемый вывод: 5
+console.log(calculator.multiply()); // Ожидаемый вывод: 50
+console.log(calculator.divide());   // Ожидаемый вывод: 2
+
+
+
+
+
+
+
+/* ******************************************************************************** */
+function createCar(brand, model, year, isElectric) {
+  const car = new Object();
+
+  car.brand = brand;
+  car.model = model;
+  car.year = year;
+  car.isElectric = isElectric;
+
+  return car;
+}
+
+const myCar = createCar("Tesla", "Model 3", 2022, true);
+console.log(myCar);
+
+
+
+/* ******************************************************************************** */
+
+// здесь
+
+
+/* ******************************************************************************** */
+
+const copyObject = oldObject => {
+  const newObject = Object.assign({},oldObject)
+
+  return newObject
+} 
+
+
+const original = { name: "Alice", age: 30 };
+const copy = copyObject(original);
+
+console.log(copy); 
+console.log(original === copy); 
+
+
+
+/* ******************************************************************************** */
+
+const userNewTask = { name: "Alice", age: 30, city: "New York" };
+
+const countProperties = obj => Object.keys(obj).length
+
+
+console.log(countProperties(userNewTask)); 
+
+
+
+
+/* ******************************************************************************** */
+const person = { name: "Bob", age: 40, city: "San Francisco" };
+
+const deleteProperty = (obj, propertyName) => {
+
+  const newObject = Object.assign({}, obj)
+  delete newObject[propertyName]
+
+  return newObject
+}
+
+
+console.log(deleteProperty(person, "city")); 
+
+
+
+
+
+/* ******************************************************************************** */
+
+const car = { brand: "Toyota", model: "Camry", year: 2021 };
+
+const hasProperty = (obj, name) => {
+  if(obj[name]) {
+    return true
+  }
+
+  return false
+}
+
+console.log(hasProperty(car, "model")); 
+// Ожидаемый вывод: true
+
+console.log(hasProperty(car, "color")); 
+// Ожидаемый вывод: false
+
+
+
+
+/* ******************************************************************************** */
+const laptop = {
+  brand: 'asd',
+  year: 540
+}
+
+for(let key in laptop) {
+  console.log(`свойство ${key}, значение: ${laptop[key]}`)
+}
+
+
+
+/* ******************************************************************************** */
+
+const personNewTask = {
+  name: 'Bob',
+  age: 12
+}
+
+Object.defineProperty(personNewTask, 'age', {
+  writable: false,
+  enumerable: false,
+  configurable: false
+})
+
+console.log(personNewTask)
+
+console.log(Object.getOwnPropertyDescriptor(personNewTask, 'age'))
+
+Object.getOwnPropertyDescriptor(personNewTask, 'age').configurable = true
+
+personNewTask.age = 50
+
+console.log(personNewTask.age)
