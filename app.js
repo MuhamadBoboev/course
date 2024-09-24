@@ -243,3 +243,115 @@ Object.getOwnPropertyDescriptor(personNewTask, 'age').configurable = true
 personNewTask.age = 50
 
 console.log(personNewTask.age)
+
+
+/* /////////////////////////////////////////////////////////////////// */
+
+const shoppingCart = {
+  itemName: '',
+  itemPrice: 0,
+  itemQuantity: 0,
+
+  updateQuantity(name, price, quantity) {
+    this.itemName += name;
+    this.itemPrice += price;
+    this.itemQuantity += quantity;
+  },
+
+  resetItem() {
+    (this.itemName = ''), (this.itemPrice = 0), (this.itemQuantity = 0);
+  },
+
+  getTotal() {
+    this.itemPrice * this.itemQuantity;
+  },
+
+  displayCart() {
+    console.log(`
+        Item in cart: ${this.itemName}, 
+        Total price: ${this.itemPrice * this.itemQuantity},
+         Item quantity: ${this.itemQuantity}`);
+  },
+};
+
+shoppingCart.updateQuantity('Ball', 100, 10);
+shoppingCart.resetItem();
+shoppingCart.displayCart();
+
+console.log(shoppingCart);
+
+
+
+/* /////////////////////////////////////////////////////////////////// */
+
+
+const studentInfo = {
+  name: 'James',
+  age: 21,
+  major: 'Computer Science',
+  gpa: 4,
+};
+
+const keys = Object.keys(studentInfo).length;
+console.log(keys);
+
+Object.keys(studentInfo).forEach(key => {
+  console.log(`${key}: ${studentInfo[key]}`);
+});
+
+
+
+/* /////////////////////////////////////////////////////////////////// */
+
+
+
+const creditAccount = {
+  owner: 'Komil',
+  balance: 0,
+  creditLimit: 5000,
+  apr: 0.18,
+
+  deposit(amount) {
+    if (amount > 0) this.balance = amount + this.balance;
+    return console.log(
+      `Пополнение счета на ${amount}, Текущий счет ${this.balance}`
+    );
+  },
+
+  withdraw(amount) {
+    if (this.balance - amount >= -this.creditLimit) {
+      console.log(
+        `Снято: ${amount}. Текущий баланс: ${(this.balance -= amount)}`
+      );
+    } else {
+      console.log(`Недостаточно средств. Кредитный лимит превышен.`);
+    }
+  },
+};
+
+console.log(creditAccount.deposit(1000));
+console.log(creditAccount.withdraw(2000));
+
+
+/* /////////////////////////////////////////////////////////////////// */
+
+
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+
+Person.prototype.getFullName = function () {
+  return ` ${this.firstName} ${this.lastName}`;
+};
+
+const person1 = new Person('Faridun', 'Ubaydov');
+
+const employee22 = Object.create(person1);
+
+employee.position = 'Frontend Developer';
+
+console.log(person1.getFullName());
+console.log(employee.position);
+
+
